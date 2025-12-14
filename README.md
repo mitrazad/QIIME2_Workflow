@@ -19,6 +19,8 @@ The workflow was designed to address the following research questions:
 
 The mapping between analysis steps and research questions is explained in the notebook and summarized below.
 
+Raw paired-end FASTQ files and SILVA reference could not be uploaded onto GitHub due to their size. SILVA reference can be downloaded here from [QIIME2](https://library.qiime2.org/data-resources).
+
 ## Repository structure
 ```sql
 project/
@@ -40,8 +42,8 @@ project/
 │   ├── *.qza
 │   └── *.qzv
 │
-├── notebook/
-│   └── main.ipynb
+├── main.ipynb
+├── main.html
 │
 └── README.md
 ```
@@ -61,7 +63,7 @@ project/
     - diversity
     - composition (ANCOM-BC)
 - Reference database:
-    - SILVA 138 (99% OTUs), Naive Bayes classifier, which was downloaded from [QIIME2].(https://library.qiime2.org/data-resources)
+    - SILVA 138 (99% OTUs), Naive Bayes classifier
 - Python: 3.10.14
 
 ## Analysis workflow
