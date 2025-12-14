@@ -1,19 +1,13 @@
 # Microbiome data analysis using QIIME 2
 
-Project: The oral microbiome of healthy and EOTRH-affected horses.
+**Project:** The oral microbiome of healthy and EOTRH-affected horses.
 
 ## Project overview
+This repository contains a complete, reproducible microbiome analysis workflow for paired-end 16S rRNA gene amplicon sequencing data, implemented using QIIME 2 (v2025.7) and its Python API.
 
-This repository contains a complete, reproducible microbiome analysis workflow for paired-end 16S rRNA gene amplicon sequencing data, implemented in QIIME 2.
+The project investigates the equine oral microbiome with a focus on Equine Odontoclastic Tooth Resorption and Hypercementosis (EOTRH). Samples originate from different oral niches (gum and plaque) and disease states (healthy, onset, diseased), and include both negative and positive controls.
 
-The analysis focuses on the oral microbiome of horses, with particular emphasis on:
-- differences between healthy and EOTRH-affected horses,
-- differences between tooth sites (gums vs. plaque),
-- taxonomic characterization and identification of unclassified taxa,
-- comparison of ASV-based and OTU-based analyses,
-- differential abundance testing using ANCOM-BC.
-
-All steps are documented in a Jupyter notebook `main.ipynb`, intermediate results are recorded and saved, and outputs are suitable for interpretation and reporting.
+All analysis steps are implemented and documented in a single Jupyter notebook `main.ipynb`, with intermediate artifacts and visualizations saved to disk for transparency, reproducibility, and downstream interpretation.
 
 ## Research questions
 The workflow was designed to address the following research questions:
@@ -67,7 +61,7 @@ project/
     - diversity
     - composition (ANCOM-BC)
 - Reference database:
-    - SILVA 138 (99% OTUs), Naive Bayes classifier
+    - SILVA 138 (99% OTUs), Naive Bayes classifier, which was downloaded from [QIIME2].(https://library.qiime2.org/data-resources)
 - Python: 3.10.14
 
 ## Analysis workflow
@@ -80,11 +74,11 @@ The notebook follows a stepwise, narrative workflow, where each step includes:
 ### Main steps
 **1. Metadata inspection:** Validation of required metadata fields (role, disease-state, type).
 
-**2. Manifest creation and import:** Import of paired-end FASTQ files using a manifest file.
+**2. Manifest creation and import:** Generation of a manifest file linking sample IDs to FASTQ files and import into QIIME 2.
 
-**3. Quality control:** Visualization of read quality profiles and sequencing depth.
+**3. Quality control:** Demultiplexing summaries and inspection of read quality profiles.
 
-**4. Primer trimming:** Removal of locus-specific primers (341F/805R) using cutadapt.
+**4. Primer trimming:** Removal of locus-specific primers (341F/805R) using `cutadapt`.
 
 **5. DADA2 denoising (ASVs):** Error correction, chimera removal, and paired-end merging.
 
@@ -98,15 +92,15 @@ The notebook follows a stepwise, narrative workflow, where each step includes:
 
 **10. Taxonomic assignment and barplots:** SILVA-based taxonomy for ASVs and OTUs.
 
-**11. Phylogenetic tree construction:** Required for Faith’s PD and UniFrac metrics.
+**11. Phylogenetic tree construction:** MAFFT alignment and FastTree inference for phylogeny-aware metrics.
 
 **12. Removal of controls for diversity analyses:** Only biological samples retained.
 
-**13. Core diversity metrics:** Alpha and beta diversity (Bray–Curtis, weighted/unweighted UniFrac).
+**13. Core diversity metrics:** Alpha diversity (Shannon, Faith’s PD) and beta diversity (Bray–Curtis, weighted and unweighted UniFrac).
 
 **14. Alpha rarefaction:** Evaluation of sequencing depth sufficiency.
 
-**15. Group significance testing:** Alpha diversity tests and PERMANOVA for disease state and sample type.
+**15. Group significance testing:** Alpha diversity group comparisons and PERMANOVA for beta diversity.
 
 **16. Identification of unclassified taxa:** Inspection of unassigned and genus-level unresolved features.
 
